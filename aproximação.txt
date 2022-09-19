@@ -1,0 +1,55 @@
+//Declaração das variáveis
+byte leds[] = {2, 3, 4};
+int trigger = 10;
+int echo = 9;
+float distancia = 0;
+
+
+// Inicialização das variáveis
+void setup() {
+  for (int i = 0; i <= sizeof(leds); i++) {
+  	pinMode(leds[i], OUTPUT); 
+  }  
+  pinMode(trigger, OUTPUT);
+  pinMode(echo, INPUT);
+  //analogReference(INTERNAL);
+  Serial.begin(9600);
+}
+
+// Execução
+void loop() {
+    calibra_sensor();
+    distancia = pulseIn(echo, 1);
+    Serial.print("Distancia: ");
+  	Serial.println(distancia);
+  }
+
+void calibra_sensor() {
+  digitalWrite(trigger, 0);
+  delay(10);
+  digitalWrite(trigger, 1);
+  delay(10);
+  digitalWrite(trigger, 0);
+  if (distancia > 200) { digitalWrite(ledverde, 1);
+delay (300); digitalWrite(ledverde, 0);
+}
+
+else If (distancia > 200 and distancia < 100){
+digitalWrite(ledamarelo, 1);
+delay (300); digitalWrite(ledamarelo, 0);
+}
+
+else If (distancia > 20 and distancia < 100){
+digitalWrite(ledvermelho, 1);
+delay (300); digitalWrite(ledvermelho, 0);
+}
+
+else If(distancia < 20){
+digitalWrite(ledverde, 1);
+digitalWrite(ledamarelo, 1);
+digitalWrite(ledvermelho, 1);
+Delay(300);
+digitalWrite(ledverde, 0);
+digitalWrite(ledamarelo, 0);
+digitalWrite(ledvermelho, 0);
+}
